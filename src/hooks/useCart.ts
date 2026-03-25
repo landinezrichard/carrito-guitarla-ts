@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { db } from "../data/db.js";
-import type { CartItem } from "../types";
+import type { Guitar, CartItem } from "../types";
 
 export const useCart = () => {
   
@@ -19,7 +19,7 @@ export const useCart = () => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  function addToCart(item) {
+  function addToCart(item: Guitar) {
     const itemExist = cart.findIndex((itemInCart) => itemInCart.id === item.id);
     // Si el item ya existe en el carrito, actualizamos la cantidad
     if (itemExist >= 0) {
@@ -31,8 +31,8 @@ export const useCart = () => {
       // Incrementar cantidad
       setCart(updatedCart);
     } else {
-      item.quantity = 1;
-      setCart([...cart, item]);
+      const newItem: CartItem = { ...item, quantity: 1 };
+      setCart([...cart, newItem]);
     }
   }
 
