@@ -1,3 +1,15 @@
+import type { Guitar, CartItem } from "../types";
+
+type HeaderProps = {
+  cart: CartItem[];
+  removeFromCart: (id: Guitar["id"]) => void;
+  increaseQuantity: (id: Guitar["id"]) => void;
+  decreaseQuantity: (id: Guitar["id"]) => void;
+  clearCart: () => void;
+  isEmpty: boolean;
+  cartTotal: number;
+};
+
 const Header = ({
   cart,
   removeFromCart,
@@ -5,9 +17,8 @@ const Header = ({
   decreaseQuantity,
   clearCart,
   isEmpty,
-  cartTotal
-}) => {
-  
+  cartTotal,
+}: HeaderProps) => {
   return (
     <header className="py-5 header">
       <div className="container-xl">
@@ -90,7 +101,10 @@ const Header = ({
                     <p className="text-end">
                       Total pagar: <span className="fw-bold">${cartTotal}</span>
                     </p>
-                    <button className="btn btn-dark w-100 mt-3 p-2" onClick={clearCart}>
+                    <button
+                      className="btn btn-dark w-100 mt-3 p-2"
+                      onClick={clearCart}
+                    >
                       Vaciar Carrito
                     </button>
                   </>
