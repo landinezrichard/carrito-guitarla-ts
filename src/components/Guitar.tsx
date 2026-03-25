@@ -1,12 +1,12 @@
-import type { Guitar } from '../types';
+import type { Guitar as GuitarModel } from '../types';
 
 type GuitarProps = {
-  guitar: Guitar;
-  addToCart: (guitar: Guitar) => void;
+  guitar: GuitarModel;
+  addToCart: (guitar: GuitarModel) => void;
 }
 
 const Guitar = ({ guitar, addToCart } : GuitarProps) => {
-  const { id, name, image, description, price } = guitar;
+  const { name, image, description, price } = guitar;
 
   return (
     <div className="col-md-6 col-lg-4 my-4 row align-items-center">
