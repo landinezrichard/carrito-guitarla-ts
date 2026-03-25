@@ -24,4 +24,5 @@ export type CartItem = Guitar & {
 
 // Forma lookup para obtener un tipo a partir de otro
 // Parecido al Pick pero con index signature
+// util para obtener el tipo de id a partir de Guitar
 // export type GuitarId = Guitar["id"];
