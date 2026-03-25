@@ -11,7 +11,7 @@ Tiene las siguientes características:
 - Limite máximo para incremento de items de 5.
 - Carrito persistente con localStorage.
 - Estilos con Bootstrap compilado.
-
+- Custom Hook "useCart" reutilizable.
 
 ## Run Server 🏃​
 
