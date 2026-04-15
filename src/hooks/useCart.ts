@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { db } from "../data/db.js";
+import { db } from "../data/db.ts";
 import type { Guitar, CartItem } from "../types";
 
 export const useCart = () => {
