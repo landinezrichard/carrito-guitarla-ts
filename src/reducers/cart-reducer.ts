@@ -21,6 +21,9 @@ export const initialState: CartState = {
   cart: [],
 };
 
+const MAX_QUANTITY = 5;
+const MIN_QUANTITY = 1;
+
 // Reducer
 export const cartReducer = (
   state: CartState = initialState,
@@ -28,8 +31,32 @@ export const cartReducer = (
 ) => {
   switch (action.type) {
     case "add-to-cart": {
+      const itemExist = state.cart.find(
+        (itemInCart) => itemInCart.id === action.payload.item.id,
+      );
+      let updatedCart: CartItem[] = [];
+      // Si el item ya existe en el carrito, actualizamos la cantidad
+      if (itemExist) {
+        updatedCart = state.cart.map((item) => {
+          if (item.id === action.payload.item.id) {
+            // Verificar si ya alcanzó el límite
+            if (item.quantity < MAX_QUANTITY) {
+              // Incrementar cantidad
+              return { ...item, quantity: item.quantity + 1 };
+            } else {
+              return item;
+            }
+          } else {
+            return item;
+          }
+        });
+      } else {
+        const newItem: CartItem = { ...action.payload.item, quantity: 1 };
+        updatedCart = [...state.cart, newItem];
+      }
       return {
         ...state,
+        cart: updatedCart,
       };
     }
     case "remove-from-cart": {
