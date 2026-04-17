@@ -60,18 +60,40 @@ export const cartReducer = (
       };
     }
     case "remove-from-cart": {
+      const cart = state.cart.filter((item) => item.id !== action.payload.id);
       return {
         ...state,
+        cart,
       };
     }
     case "increase-quantity": {
+      const cart = state.cart.map((item) => {
+      if (item.id === action.payload.id && item.quantity < MAX_QUANTITY) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      }
+      return item;
+    });
       return {
         ...state,
+        cart
       };
     }
     case "decrease-quantity": {
+      const cart = state.cart.map((item) => {
+      if (item.id === action.payload.id && item.quantity > MIN_QUANTITY) {
+        return {
+          ...item,
+          quantity: item.quantity - 1,
+        };
+      }
+      return item;
+    });
       return {
         ...state,
+        cart
       };
     }
     case "clear-cart": {
