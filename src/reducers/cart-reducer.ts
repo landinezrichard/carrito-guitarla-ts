@@ -15,10 +15,15 @@ export type CartState = {
   cart: CartItem[];
 };
 
+const initialCart = (): CartItem[] => {
+  const localStorageCart = localStorage.getItem("cart");
+  return localStorageCart ? JSON.parse(localStorageCart) : [];
+};
+
 // Estado inicial
 export const initialState: CartState = {
   data: db,
-  cart: [],
+  cart: initialCart(),
 };
 
 const MAX_QUANTITY = 5;
@@ -68,37 +73,38 @@ export const cartReducer = (
     }
     case "increase-quantity": {
       const cart = state.cart.map((item) => {
-      if (item.id === action.payload.id && item.quantity < MAX_QUANTITY) {
-        return {
-          ...item,
-          quantity: item.quantity + 1,
-        };
-      }
-      return item;
-    });
+        if (item.id === action.payload.id && item.quantity < MAX_QUANTITY) {
+          return {
+            ...item,
+            quantity: item.quantity + 1,
+          };
+        }
+        return item;
+      });
       return {
         ...state,
-        cart
+        cart,
       };
     }
     case "decrease-quantity": {
       const cart = state.cart.map((item) => {
-      if (item.id === action.payload.id && item.quantity > MIN_QUANTITY) {
-        return {
-          ...item,
-          quantity: item.quantity - 1,
-        };
-      }
-      return item;
-    });
+        if (item.id === action.payload.id && item.quantity > MIN_QUANTITY) {
+          return {
+            ...item,
+            quantity: item.quantity - 1,
+          };
+        }
+        return item;
+      });
       return {
         ...state,
-        cart
+        cart,
       };
     }
     case "clear-cart": {
       return {
         ...state,
+        cart: [],
       };
     }
 
